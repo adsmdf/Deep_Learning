@@ -23,24 +23,24 @@ end
 
 %% Training Algorithm
 %trainFcn = 'trainlm';  % Levenberg-Marquardt backpropagation.
-%trainFcn = 'trainbr'; % Bayesian Regularization backpropagation
-trainFcn = 'trainscg'; % Scaled conjugate gradient backpropagation
+trainFcn = 'trainbr'; % Bayesian Regularization backpropagation
+%trainFcn = 'trainscg'; % Scaled conjugate gradient backpropagation
 
 %% Main
 %running 10 times
 num_runs = 10;
 for i = 1:num_runs
 %Create Network
-    Neurons = 80; %Number of Neurons
+    Neurons = 15; %Number of Neurons
     net = fitnet(Neurons,trainFcn);
     %net = fitnet([8 5], trainFcn) %Each number represents the number of nodes per the number of layers you want
-    net.performParam.regularization = 0.5; %Change weight decay
+    %net.performParam.regularization = ; %Change weight decay
 %Training the Network
     [net,tr] = train(net,x,t);
 %Splitting the Dataset 70% Training, 15% Validation, 15% Test
-    net.divideParam.trainRatio = 30/100;
-    net.divideParam.valRatio = 20/100;
-    net.divideParam.testRatio = 50/100;
+    net.divideParam.trainRatio = 70/100;
+    net.divideParam.valRatio = 15/100;
+    net.divideParam.testRatio = 15/100;
 %Saving Tr data
     tr_save{i} = tr;
 %Part B.1 saving best values
